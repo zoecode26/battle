@@ -1,7 +1,3 @@
-<%if @game.current_turn == @game.player_1 %>
-  <%= @game.player_2.name %> has attacked <%= @game.current_turn.name %>
-<%else%>
-  <%= @game.player_1.name %> has attacked <%= @game.current_turn.name %>
-<%end%>
+<%= @game.opponent_turn.name %> has attacked <%= @game.turn.name %>
 <br>
 <a href="/play">OK</a>

@@ -3,42 +3,53 @@ require 'player'
 
 describe Game do
 
-  subject(:mittens) { Player.new("Mittens") }
-  subject(:dave) { Player.new("Dave") }
-  subject(:game) {Game.new(dave, mittens)}
+  let(:player_1) { Player.new("Dave") }
+  let(:player_2) { Player.new("Mittens") }
+  let(:game) {Game.new(player_1, player_2)}
+
+
 
   describe '#initialize' do
     it 'confirms player 1' do
-      expect(game.player_1).to eq(dave)
+      expect(game.players[0].name).to eq("Dave")
     end
 
     it 'confirms player 2' do
-      expect(game.player_2).to eq(mittens)
+      expect(game.players[1].name).to eq("Mittens")
     end
   end
 
   describe '#attack' do
     it 'allows player 1 to receive damage' do
-      expect(mittens).to receive(:receive_damage)
-      game.attack(mittens)
+      expect(player_2).to receive(:receive_damage)
+      game.attack(player_2)
     end
 
     it 'allows player 2 to receive damage' do
-      expect(dave).to receive(:receive_damage)
-      game.attack(dave)
+      expect(player_1).to receive(:receive_damage)
+      game.attack(player_1)
     end
   end
 
   describe '#current_turn' do
     it 'starts with Player 1' do
-      expect(game.current_turn).to eq dave
+      expect(game.turn).to eq player_1
+    end
+
+    it 'starts opponent turn at player 2' do
+      expect(game.opponent_turn).to eq player_2
     end
   end
 
   describe '#switch_turn' do
     it 'switches turns' do
       game.switch_turn
-      expect(game.current_turn).to eq mittens
+      expect(game.turn).to eq player_2
+    end
+
+    it 'sets opponent turn at player 1 after switch turn' do
+      game.switch_turn
+      expect(game.opponent_turn).to eq player_1
     end
   end
 end

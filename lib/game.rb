@@ -1,10 +1,9 @@
 class Game
-  attr_reader :player_1, :player_2, :current_turn
+  attr_reader :players
 
   def initialize(player_1, player_2)
-    @player_1 = player_1
-    @player_2 = player_2
-    @current_turn = player_1
+    @players = [player_1, player_2]
+    @current = @players[0]
   end
 
   def attack(player)
@@ -13,10 +12,22 @@ class Game
   end
 
   def switch_turn
-    if @current_turn == player_1
-      @current_turn = player_2
-    else
-      @current_turn = player_1
-    end
+    @current = opponent_turn
+  end
+
+  def turn
+    @current
+  end
+
+  def opponent_turn
+    @players[((@players.index(@current)-1)**2)]
+  end
+
+  def player_1
+    @players.first
+  end
+
+  def player_2
+    @players.last
   end
 end
