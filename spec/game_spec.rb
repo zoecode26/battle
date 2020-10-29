@@ -2,7 +2,7 @@ require 'game'
 require 'player'
 
 describe Game do
-  
+
   subject(:mittens) { Player.new("Mittens") }
   subject(:dave) { Player.new("Dave") }
   subject(:game) {Game.new(dave, mittens)}
@@ -18,9 +18,14 @@ describe Game do
   end
 
   describe '#attack' do
-    it 'damages the player' do
+    it 'allows player 1 to receive damage' do
       expect(mittens).to receive(:receive_damage)
       game.attack(mittens)
+    end
+
+    it 'allows player 2 to receive damage' do
+      expect(dave).to receive(:receive_damage)
+      game.attack(dave)
     end
   end
 
