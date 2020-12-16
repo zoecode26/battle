@@ -1,5 +1,17 @@
-<%= @game.player_1.name %> <%= @game.player_1.hit_points %>HP vs. <%= @game.player_2.name %> <%= @game.player_2.hit_points %>HP
-<br>
-<%= @game.turn.name %>'s turn
-<br>
-<a href="/attack">Attack</a>
+<% if @game.game_over? %>
+  <h1> End of Battle! </h1>
+  <h2> <%= @game.player_1.name %> vs. <%= @game.player_2.name %> </h2>
+  <%= @game.turn.name %> lost!
+<% else %>
+  <h1> Time to Battle! </h1>
+  <h2> <%= @game.player_1.name %> vs. <%= @game.player_2.name %> </h2>
+  <%= @game.player_1.hit_points %>HP : <%= @game.player_2.hit_points %>HP <br><br>
+  <% if @game.attacked %>
+    <%= @game.opponent_turn.name %> has attacked <%= @game.turn.name %><br>
+  <% end %>
+  <%= @game.turn.name %>'s turn <br><br>
+
+  <form action="/attack" method="POST">
+    <input type="submit" value = "Attack">
+  </form>
+<% end %>

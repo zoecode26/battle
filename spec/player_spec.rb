@@ -3,7 +3,7 @@ require 'player'
 RSpec.describe Player do
   subject(:mittens) { Player.new("Mittens") }
   subject(:dave) { Player.new("Dave") }
-  
+
   describe 'name' do
     it 'returns the name' do
       expect(mittens.name).to eq 'Mittens'

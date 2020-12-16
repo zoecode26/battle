@@ -52,4 +52,16 @@ describe Game do
       expect(game.opponent_turn).to eq player_1
     end
   end
+
+  describe '#game_over' do
+    it 'returns true if either player has 0 points' do
+      6.times{ game.attack(player_2) }
+      expect(game.game_over?).to eq true
+    end
+
+    it 'returns false if both players have some points' do
+      3.times{ game.attack(player_2) }
+      expect(game.game_over?).to eq false
+    end
+  end
 end
